@@ -17,7 +17,6 @@ import model.entities.Reservation;
  * datas futuras - A data de saída deve ser maior que a data de entrada
  */
 
-
 public class Program3 {
 
 	public static void main(String[] args) throws ParseException {
@@ -46,15 +45,13 @@ public class Program3 {
 			System.out.print("Data de check-out (dd/MM/yyyy): ");
 			checkOut = sdf.parse(sc.next());
 
-			Date now = new Date();
-			if (checkIn.before(now) || checkOut.before(now)) {
-				System.out.println("Erro na reserva: as datas de reserva para atualização devem ser datas futuras");
-			} else if (!checkOut.after(checkIn)) {
-				System.out.println("Erro na reserva: a data de check-out deve ser posterior à data de check-in");
+			String error = reservation.updateDates(checkIn, checkOut);
+			if (error != null) {
+				System.out.println("Erro na reserva: " + error);
 			} else {
-				reservation.updateDates(checkIn, checkOut);
 				System.out.println("Reserva: " + reservation);
 			}
+
 		}
 
 	}
